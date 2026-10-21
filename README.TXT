@@ -1,13 +1,7 @@
 HTTPS-прокси для Firefox
 
-ВЕРСИИ СКРИПТА
-24.04.sh — v1.2, Ubuntu 22.04 и 24.04, текущая версия.
-22.04.sh — более ранняя v1.1, только Ubuntu 22.04.
-Для запуска v1.1: bash /root/22.04.sh
-В ней сохранены ожидание готовности Squid и ввод IP сервера;
-дополнения AppArmor из v1.2 отсутствуют.
-
-Инструкция ниже относится к текущей v1.2.
+Файл install-https-proxy.sh — версия 1.2 для Ubuntu 22.04 и 24.04.
+Один и тот же скрипт подходит для обеих версий ОС.
 
 Версия 1.2 от 21.10.2026. ОС: Ubuntu 22.04 или 24.04. В примерах SSH-порт — 22; замените его, если у вас другой. Скрипт рассчитан на сервер с Amnezia без ранее установленного Squid/stunnel. Он не управляет Docker, контейнерами, SSH и настройками Amnezia. Устанавливает пакеты из репозиториев Ubuntu и Certbot из PyPI в отдельное Python-окружение. Не выполняет полное обновление ОС.
 
@@ -26,28 +20,19 @@ ssh -p 22 root@IP_НОВОГО_СЕРВЕРА
 Пароль вводится только на вашем компьютере; символы при вводе не показываются.
 При первом подключении сверяйте отпечаток SSH-ключа с данными провайдера.
 
-2. Скачать и запустить нужную версию НА СЕРВЕРЕ
+2. Скачать и запустить скрипт НА СЕРВЕРЕ
 
-Выполните только блок, соответствующий вашей ОС.
-Проверить версию Ubuntu: cat /etc/os-release
+Для Ubuntu 22.04 и 24.04 используются одинаковые команды.
 Если curl отсутствует: apt-get update && apt-get install -y curl
 
-Ubuntu 22.04 (скрипт v1.1):
-
-curl -fL 'https://raw.githubusercontent.com/spak44/https-proxy-installer-Ubuntu-24.04/main/22.04.sh' -o /root/22.04.sh
-bash /root/22.04.sh
-
-Ubuntu 24.04 (скрипт v1.2):
-
-curl -fL 'https://raw.githubusercontent.com/spak44/https-proxy-installer-Ubuntu-24.04/main/24.04.sh' -o /root/24.04.sh
-bash /root/24.04.sh
+curl -fL 'https://raw.githubusercontent.com/spak44/https-proxy-installer-Ubuntu-24.04/main/install-https-proxy.sh' -o /root/install-https-proxy.sh
+bash /root/install-https-proxy.sh
 
 Запускайте bash только после успешного скачивания файла.
 Скрипт запросит публичный IPv4 нового сервера из панели VPS.
 IP можно также передать при запуске:
 
-Ubuntu 22.04: bash /root/22.04.sh IP_НОВОГО_СЕРВЕРА
-Ubuntu 24.04: bash /root/24.04.sh IP_НОВОГО_СЕРВЕРА
+bash /root/install-https-proxy.sh IP_НОВОГО_СЕРВЕРА
 
 Скрипт сообщит выбранный порт: 443, а если занят — 8443 или 9443. Затем попросит email для учётной записи центра сертификации и YES (можно yes) для принятия условий Let's Encrypt и начала установки.
 

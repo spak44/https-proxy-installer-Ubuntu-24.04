@@ -11,7 +11,7 @@ CB=/opt/browser-proxy-certbot/bin/certbot
 STATE=/var/lib/browser-proxy
 die() { printf '\nSTOP: %s\n' "$*" >&2; exit 1; }
 trap 'printf "\nERROR at line %s. Installation stopped; installed files are retained. Do not send passwords.\n" "$LINENO" >&2' ERR
-[[ $EUID == 0 ]] || die 'Run as root: sudo bash 24.04.sh'
+[[ $EUID == 0 ]] || die 'Run as root: sudo bash install-https-proxy.sh'
 [[ -t 0 ]] || die 'Run in an interactive SSH terminal, not via curl | bash.'
 # shellcheck source=/dev/null
 . /etc/os-release
