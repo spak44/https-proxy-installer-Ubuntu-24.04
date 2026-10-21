@@ -1,1 +1,0 @@
-# https-proxy-installer-Ubuntu-24.04
